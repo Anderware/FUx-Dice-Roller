@@ -11,7 +11,7 @@
         "Hint": "Displays FUx Dice Roller"
       }, 
          
-      "OPTION_ROLL_MODE": {
+      "OPTION_SYSTEM_VARIANT": {
         "Name": "FUx System Variant",
         "Hint": "Variant of FreeForm Universal(FU) used"
       },        
@@ -49,10 +49,11 @@
       } ,
       
       
-      "ROLL_MODE_FU_CLASSIC":"FU Classic",
-      "ROLL_MODE_FU_V2":"FU v2",
-      "ROLL_MODE_ACTION_TALES":"Action! Tales",
-      "ROLL_MODE_NEON_CITY_OVERDRIVE":"Neon City Overdrive",
+      "SYSTEM_VARIANT_FU_CLASSIC":"FU Classic",
+      "SYSTEM_VARIANT_FU_V2":"FU v2",
+      "SYSTEM_VARIANT_ACTION_TALES":"Action! Tales",
+      "SYSTEM_VARIANT_NEON_CITY_OVERDRIVE":"Neon City Overdrive",
+      "SYSTEM_VARIANT_EARTHDAWN_AGE_OF_LEGEND":"Earthdawn - Age Of Legend",
       "OPTION_CHATMSG_STYLE_CORE":"Foundry Core",
       "OPTION_CHATMSG_STYLE_SANDBOX":"Sandbox System"
     }

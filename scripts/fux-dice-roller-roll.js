@@ -1,4 +1,4 @@
-
+import { FUX_CONST } from   './fux-dice-roller-constants.js';
 const _module_id = 'fux-dice-roller';  // modules true name(id)
 export async function RollFuxDice(actiondice, dangerdice) {
     if (actiondice == 0 && dangerdice == 0) {
@@ -7,21 +7,19 @@ export async function RollFuxDice(actiondice, dangerdice) {
     }
 
     let hardmode = game.settings.get(_module_id, 'OPTION_HARD_MODE');
-    let roll_mode = game.settings.get(_module_id, 'OPTION_ROLL_MODE');
+    let systemvariant = game.settings.get(_module_id, 'OPTION_SYSTEM_VARIANT');
     let botch_value = game.settings.get(_module_id, 'OPTION_BOTCH_VALUE');
 
-    // reduce dice if FU Classic
-    if (roll_mode == 0) {
+    // reduce dice if FU Classic    
+    if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.FU_CLASSIC) {
       // 5a, 3d => 2a
       // 2a, 3d => 1d
       // 2a, 2d => 
       if (dangerdice == actiondice) {
         actiondice = 0;
         dangerdice = 2;
-
       } else if (dangerdice > actiondice) {
         // more penalty than bonus
-
         dangerdice = dangerdice - actiondice + 2;
         actiondice = 0;
       } else if (actiondice > dangerdice) {
@@ -29,7 +27,22 @@ export async function RollFuxDice(actiondice, dangerdice) {
         actiondice = actiondice - dangerdice;
         dangerdice = 0;
       }
-
+    }
+    // reduce dice if Earthdawn Age of legend
+    if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.EARTHDAWN_AGE_OF_LEGEND) {
+      // in EDAoL, the roll is always 1d6 plus a reduced set of negative and/or positive fudge dice(1d6 where 5-6 means +/- else ignored)
+      if(actiondice>1 && dangerdice>0){
+        if (actiondice==dangerdice){
+          actiondice=1;
+          dangerdice=1;         
+        } else if(actiondice>dangerdice){
+          actiondice=actiondice - dangerdice;
+          dangerdice=0;
+        } else if(actiondice<dangerdice){
+          dangerdice=dangerdice - actiondice +1;
+          actiondice=1;
+        }
+      }
     }
     // roll dice
     let actiondiceresults = await new Roll(actiondice + "d6").roll({async: true});
@@ -46,6 +59,8 @@ export async function RollFuxDice(actiondice, dangerdice) {
         actionssorted.push(actiondiceresults.terms[0].results[i].result);
       }
     }
+    
+    
     // sort action results
     actionssorted.sort(function (a, b) {
       return a - b;
@@ -82,8 +97,7 @@ export async function RollFuxDice(actiondice, dangerdice) {
       if (i == 0) {
         dangerresult = '<img src="modules/fux-dice-roller/images/dangerdie_value_' + dangersorted[i] + '.png" style="margin-top:0px;margin-left:2px;">';
       } else {
-        dangerresult = dangerresult + '' + '<img src="modules/fux-dice-roller/images/dangerdie_value_' + dangersorted[i] + '.png" style="margin-top:0px;margin-left:2px;">';
-        ;
+        dangerresult = dangerresult + '' + '<img src="modules/fux-dice-roller/images/dangerdie_value_' + dangersorted[i] + '.png" style="margin-top:0px;margin-left:2px;">';        
       }
     }
     // find highest remaining positive in finals
@@ -101,11 +115,10 @@ export async function RollFuxDice(actiondice, dangerdice) {
     let hasfumble = false
     let submsg = '';
     let flavortext = '';
-    if (roll_mode == 0) {
+    if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.FU_CLASSIC) {
       // classic fu
       flavortext = 'Beating the Odds';
       let option_matchingdice = game.settings.get(_module_id, 'OPTION_FU_CLASSIC_MATCHING_DICE');
-
       if (actiondice == 0) {
         // use lowest
         // used for fu classic    
@@ -182,7 +195,8 @@ export async function RollFuxDice(actiondice, dangerdice) {
           }
           break;
       }
-    } else if (roll_mode >= 2) {
+    } 
+    else if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.ACTION_TALES || systemvariant == FUX_CONST.SYSTEM_VARIANTS.NEON_CITY_OVERDRIVE) {
       // use the oracle from ActionTales(Neon City Overdrive) 
       flavortext = 'The Check returned';
       // use highest action dice
@@ -216,7 +230,93 @@ export async function RollFuxDice(actiondice, dangerdice) {
           }
           break;
       }
-    } else {
+    } 
+    else if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.EARTHDAWN_AGE_OF_LEGEND) {
+      // use the oracle from  EDAoL
+      flavortext = 'Beating the Odds';
+      
+      // EDAoL workd different than the others so here will be a complete re-reading of dice roll
+      rollvalue=1; // set default
+      if (actiondiceresults.terms[0].results.length > 0) {                
+        for (let i = 0; i < actiondiceresults.terms[0].results.length; i++) {                    
+          if (i == 0) {
+            // the first action dice is the base die
+            rollvalue= actiondiceresults.terms[0].results[0].result;            
+            actionresult = '<img src="modules/fux-dice-roller/images/actiondie_value_' + actiondiceresults.terms[0].results[i].result + '.png" style="margin-top:-3px;margin-left:2px;">';
+          } else {
+            // now look for bonus dice that have result 5-6
+            if(actiondiceresults.terms[0].results[i].result>=5){
+              // a +   
+              if(rollvalue<6){
+                rollvalue=rollvalue+1;
+              } else{
+                boons=boons+1;
+              }
+              actionresult = actionresult + '' + '<img src="modules/fux-dice-roller/images/actiondie_value_fudge_success.png" style="margin-top:-3px;margin-left:2px;">'; 
+            } else{
+              actionresult = actionresult + '' + '<img src="modules/fux-dice-roller/images/actiondie_value_blank.png" style="margin-top:-3px;margin-left:2px;">';  
+            }
+            
+          }
+        }
+      }
+      // now check the penalty dice
+      if (dangerdiceresults.terms[0].results.length > 0) {  
+        let imagefile='';
+        for (let i = 0; i < dangerdiceresults.terms[0].results.length; i++) {
+          // now look for penalty dice that have result 5-6
+          if(dangerdiceresults.terms[0].results[i].result>=5){
+            // a -
+            if(rollvalue>1){
+              rollvalue=rollvalue -1;
+            } else{
+              botches=botches+1;
+            }
+            imagefile='dangerdie_value_fudge_fail';
+          } else{
+            imagefile='dangerdie_value_blank';
+          }          
+          if (i == 0) {
+            dangerresult = '<img src="modules/fux-dice-roller/images/' + imagefile + '.png" style="margin-top:0px;margin-left:2px;">';
+          } else {
+            dangerresult = dangerresult + '' + '<img src="modules/fux-dice-roller/images/' + imagefile + '.png" style="margin-top:0px;margin-left:2px;">';            
+          }
+          
+        }
+      }
+            
+      submsg = 'Result: ' + rollvalue;
+      switch (rollvalue) {        
+        case 0:         
+        case 1:
+          oracle = 'NO, AND';  
+          if(botches>0){
+            hasfumble = true;
+            submsg = submsg + ' + ' + botches + '(Botch(s)) ';
+          }
+          break;
+        case 2:
+          oracle = 'NO';
+          break;
+        case 3:
+          oracle = 'NO, BUT';
+          break;
+        case 4:
+          oracle = 'YES, BUT';
+          break;
+        case 5:
+          oracle = 'YES';
+          break;
+        case 6:
+          oracle = 'YES, AND'; 
+          if(boons>0){
+            hascrit = true;
+            submsg = submsg + ' + ' + boons + '(Boon(s)) ';
+          }
+          break;
+      }
+    } 
+    else {
       // Standard FU2 oracle
       flavortext = 'The Oracle answered';
       rollvalue = highest;
@@ -315,18 +415,14 @@ export async function RollFuxDice(actiondice, dangerdice) {
         throws: [{
             dice:dice3dice 
           }]
-      };
-      
-      let user=game.user;
-      //;
+      };      
+      let user=game.user;      
       let synchronize=false;
       let whisper;
-      let blind = false;
-      
+      let blind = false;      
       if(publicmode){
         synchronize=true;
-      }
-      
+      }      
       if(privatemode){
         synchronize=true;
         whisper=ChatMessage.getWhisperRecipients('GM');
@@ -335,12 +431,10 @@ export async function RollFuxDice(actiondice, dangerdice) {
         blind=true;
         synchronize=true;
         whisper=ChatMessage.getWhisperRecipients('GM');
-      }
-      
+      }      
       if(selfmode){
         synchronize=false;
-      }
-      
+      }      
       // always show for gm
       if (game.user.isGM) {
         blind = false;
@@ -402,20 +496,40 @@ export async function RollFuxDice(actiondice, dangerdice) {
       let actionrolls=[];
       let dangerrolls=[];
       
-      for (let i = 0; i < actionssorted.length; i++) {
-        let dieresult={
-          classes:'die d6',
-          result: actionssorted[i]
-        };
-        actionrolls.push(dieresult);
+      if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.EARTHDAWN_AGE_OF_LEGEND) {
+        // don use the sorted array
+        for (let i = 0; i < actiondiceresults.terms[0].results.length; i++) {
+          let dieresult={
+            classes:'die d6',
+            result: actiondiceresults.terms[0].results[i].result
+          };
+          actionrolls.push(dieresult);
+        }
+        for (let i = 0; i < dangerdiceresults.terms[0].results.length; i++) {          
+          let dieresult={
+            classes:'die d6',
+            result: dangerdiceresults.terms[0].results[i].result
+          };
+          dangerrolls.push(dieresult);
+        }
+        
+      } else{      
+        for (let i = 0; i < actionssorted.length; i++) {
+          let dieresult={
+            classes:'die d6',
+            result: actionssorted[i]
+          };
+          actionrolls.push(dieresult);
+        }
+        for (let i = 0; i < dangersorted.length; i++) {
+          let dieresult={
+            classes:'die d6',
+            result: dangersorted[i]
+          };
+          dangerrolls.push(dieresult);
+        }  
       }
-      for (let i = 0; i < dangersorted.length; i++) {
-        let dieresult={
-          classes:'die d6',
-          result: dangersorted[i]
-        };
-        dangerrolls.push(dieresult);
-      }                   
+      
       let parts=[
         {
           faces:6,

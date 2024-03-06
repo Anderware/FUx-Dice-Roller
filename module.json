@@ -1,7 +1,7 @@
 {
   "name": "fux-dice-roller",
   "title": "FUx Dice Roller",
-  "description": "Dice roller for FreeForm Universal(FU) RPG Classic & v2, Action Tales! RPG, Neon City Overdrive RPG",
+  "description": "Dice roller for FreeForm Universal(FU) RPG Classic & v2, Action Tales! RPG, Neon City Overdrive RPG, Earthdawn - Age Of Legend",
   "author":"anders-forslund",
   "authors": [
     {
@@ -16,7 +16,7 @@
       "path": "languages/en.json"
     }
   ],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "minimumCoreVersion": "0.8.8",
   "compatibleCoreVersion": "9.242", 
   "styles": [
@@ -28,13 +28,14 @@
     "scripts/fux-dice-roller-roll.js",
     "scripts/fux-dice-roller-form.js",
     "scripts/module-settings-form.js",
-    "scripts/fux-dice-roller-combat-helper-form.js"
+    "scripts/fux-dice-roller-combat-helper-form.js",
+    "scripts/fux-dice-roller-constants.js"
   ],
   "manifest": "https://raw.githubusercontent.com/Anderware/Foundry-Vtt-Sandbox-Macros/main/Modules/FUx-Dice-Roller/releases/module.json",
   "url": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/tree/main/Modules/FUx-Dice-Roller",
-  "download": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/raw/main/Modules/FUx-Dice-Roller/releases/0.1.0/fux-dice-roller-0.1.0.zip",
+  "download": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/raw/main/Modules/FUx-Dice-Roller/releases/0.2.0/fux-dice-roller-0.2.0.zip",
   "readme": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/blob/main/Modules/FUx-Dice-Roller/README.MD",
-  "changelog": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/blob/main/Modules/FUx-Dice-Roller/releases/0.1.0/changelog.md",
+  "changelog": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/blob/main/Modules/FUx-Dice-Roller/releases/0.2.0/changelog.md",
   "media": [
       {
           "type": "icon",

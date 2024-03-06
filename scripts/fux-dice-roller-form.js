@@ -2,38 +2,14 @@ import { _module_id } from   './fux-dice-roller.js';
 import { RollFuxDice } from   './fux-dice-roller-roll.js';
 import { ModuleSettingsForm } from "./module-settings-form.js";
 import { FUxDiceRollerCombatHelperForm } from "./fux-dice-roller-combat-helper-form.js";
+import { FUX_CONST } from   './fux-dice-roller-constants.js';
+import { SystemVariantName } from   './fux-dice-roller-constants.js';
 export class FUxDiceRollerForm extends FormApplication {
   static title = 'FUx Dice Roller'
   static initialize() {
     //console.log('Initialized FUxDiceRollerForm' );
   }   
-
-  static ROLL_MODE = {
-    FU_CLASSIC: 0,
-    FU_V2: 1,
-    ACTION_TALES: 2,
-    NEON_CITY_OVERDRIVE: 3
-  }
-
-  _RollModeName(roll_mode) {
-    let roll_modename = 'Unknown Variant';
-    switch (roll_mode.toString()) {
-      case FUxDiceRollerForm.ROLL_MODE.FU_CLASSIC.toString():
-        roll_modename = game.i18n.localize('fux-dice-roller.settings.ROLL_MODE_FU_CLASSIC');
-        break;
-      case FUxDiceRollerForm.ROLL_MODE.FU_V2.toString():
-        roll_modename = game.i18n.localize('fux-dice-roller.settings.ROLL_MODE_FU_V2');
-        break;
-      case FUxDiceRollerForm.ROLL_MODE.ACTION_TALES.toString():
-        roll_modename = game.i18n.localize('fux-dice-roller.settings.ROLL_MODE_ACTION_TALES');
-        break;
-      case FUxDiceRollerForm.ROLL_MODE.NEON_CITY_OVERDRIVE.toString():
-        roll_modename = game.i18n.localize('fux-dice-roller.settings.ROLL_MODE_NEON_CITY_OVERDRIVE');
-        break;
-    }
-    return roll_modename;
-  }
-
+  
   static get defaultOptions() {
     const defaults = super.defaultOptions;
     const overrides = {
@@ -69,20 +45,9 @@ export class FUxDiceRollerForm extends FormApplication {
     let dangerdie;
     let actiondice_title = 'Action Dice';
     let dangerdice_title = 'Danger Dice';
-    let roll_mode = game.settings.get(_module_id, 'OPTION_ROLL_MODE');
-    let system_variant = this._RollModeName(roll_mode);
-    switch (roll_mode.toString()) {
-      case FUxDiceRollerForm.ROLL_MODE.FU_CLASSIC.toString():
-//        actiondice_title = 'Start + Bonus Dice';
-//        dangerdice_title = 'Penalty Dice'
-        break;
-      case FUxDiceRollerForm.ROLL_MODE.FU_V2.toString():
-        break;
-      case FUxDiceRollerForm.ROLL_MODE.ACTION_TALES.toString():
-        break;
-      case FUxDiceRollerForm.ROLL_MODE.NEON_CITY_OVERDRIVE.toString():
-        break;
-    }
+    let systemvariant = game.settings.get(_module_id, 'OPTION_SYSTEM_VARIANT');
+    let systemvariantname = SystemVariantName(systemvariant);
+
     for (let i = 1; i <= availabledice; i++) {
       if (i == 1) {
         actiondie = {"number": i, "isSelected": true};
@@ -99,13 +64,13 @@ export class FUxDiceRollerForm extends FormApplication {
       showfuxsettings = true;
     }
     let showfu2combathelper = false;
-    if (roll_mode == FUxDiceRollerForm.ROLL_MODE.FU_V2) {
+    if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.FU_V2) {
       showfu2combathelper = true;
     }
     data = {
       showfuxsettings: showfuxsettings,
       showfu2combathelper: showfu2combathelper,
-      system_variant: system_variant,
+      system_variant: systemvariantname,
       actiondice_title: actiondice_title,
       dangerdice_title: dangerdice_title,
       actiondice: actiondice,
@@ -146,13 +111,13 @@ export class FUxDiceRollerForm extends FormApplication {
     let result = await RollFuxDice(actiondice, dangerdice);
 
     // --------------------------------------------- 
-    let chkSendToInitative = doc.getElementById("fux-dice-roller-form-chkSendToCombatTracker").checked;
-    
-    if (chkSendToInitative) {
-
-      for (const token of canvas.tokens.controlled) {
-        const combatant = game.combat.combatants.find(c => c.data.tokenId === token.data._id);
-        game.combat.setInitiative(combatant.data._id, result);
+    let chkSendToCombatTrackerelement=doc.getElementById("fux-dice-roller-form-chkSendToCombatTracker");
+    if (chkSendToCombatTrackerelement != null) {      
+      if (chkSendToCombatTrackerelement.checked) {
+        for (const token of canvas.tokens.controlled) {
+          const combatant = game.combat.combatants.find(c => c.data.tokenId === token.data._id);
+          game.combat.setInitiative(combatant.data._id, result);
+        }
       }
     }
   }

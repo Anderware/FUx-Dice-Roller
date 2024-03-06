@@ -6,6 +6,7 @@ import { ModuleSettingsForm } from "./module-settings-form.js";
 import { FUxDiceRollerForm } from "./fux-dice-roller-form.js";
 import { RollFuxDice } from   './fux-dice-roller-roll.js';
 import { FUxDiceRollerCombatHelperForm } from "./fux-dice-roller-combat-helper-form.js";
+import { FUX_CONST } from   './fux-dice-roller-constants.js';
 
 
 class FUxDiceRoller {
@@ -15,11 +16,12 @@ class FUxDiceRoller {
     SETTINGS_FORM: 'SETTINGS_FORM',
     ROLLER_FORM: 'ROLLER_FORM',
     OPTION_DICE_AVAILABLE: 'OPTION_DICE_AVAILABLE',
-    OPTION_ROLL_MODE: 'OPTION_ROLL_MODE',
-    ROLL_MODE_FU_CLASSIC: 'ROLL_MODE_FU_CLASSIC',
-    ROLL_MODE_FU_V2: 'ROLL_MODE_FU_V2',
-    ROLL_MODE_ACTION_TALES: 'ROLL_MODE_ACTION_TALES',
-    ROLL_MODE_NEON_CITY_OVERDRIVE: 'ROLL_MODE_NEON_CITY_OVERDRIVE',
+    OPTION_SYSTEM_VARIANT: 'OPTION_SYSTEM_VARIANT',
+    SYSTEM_VARIANT_FU_CLASSIC: 'SYSTEM_VARIANT_FU_CLASSIC',
+    SYSTEM_VARIANT_FU_V2: 'SYSTEM_VARIANT_FU_V2',
+    SYSTEM_VARIANT_ACTION_TALES: 'SYSTEM_VARIANT_ACTION_TALES',
+    SYSTEM_VARIANT_NEON_CITY_OVERDRIVE: 'SYSTEM_VARIANT_NEON_CITY_OVERDRIVE',
+    SYSTEM_VARIANT_EARTHDAWN_AGE_OF_LEGEND: 'SYSTEM_VARIANT_EARTHDAWN_AGE_OF_LEGEND',
     OPTION_CHATMSG_STYLE: 'OPTION_CHATMSG_STYLE',
     OPTION_CHATMSG_STYLE_CORE: 'OPTION_CHATMSG_STYLE_CORE',
     OPTION_CHATMSG_STYLE_SANDBOX: 'OPTION_CHATMSG_STYLE_SANDBOX',
@@ -31,7 +33,7 @@ class FUxDiceRoller {
 
   static DEFAULT_SETTINGS = {
     OPTION_DICE_AVAILABLE: 8,
-    OPTION_ROLL_MODE: 1,
+    OPTION_SYSTEM_VARIANT: FUX_CONST.SYSTEM_VARIANTS.FU_V2,
     OPTION_CHATMSG_STYLE: 1,
     OPTION_SHOW_SEND_TO_COMBAT_TRACKER: true,
     OPTION_HARD_MODE: '',
@@ -41,12 +43,6 @@ class FUxDiceRoller {
   static CHATMSG_STYLE = {
     CORE: 0,
     SANDBOX: 1
-  }
-  static ROLL_MODE = {
-    FU_CLASSIC: 0,
-    FU_V2: 1,
-    ACTION_TALES: 2,
-    NEON_CITY_OVERDRIVE: 3
   }
 
   static initialize() {
@@ -70,15 +66,16 @@ class FUxDiceRoller {
       restricted: true
     });
 
-    game.settings.register(this.ID, this.SETTINGS.OPTION_ROLL_MODE, {
-      name: `fux-dice-roller.settings.${this.SETTINGS.OPTION_ROLL_MODE}.Name`,
-      default: `${this.DEFAULT_SETTINGS.OPTION_ROLL_MODE}`,
+    game.settings.register(this.ID, this.SETTINGS.OPTION_SYSTEM_VARIANT, {
+      name: `fux-dice-roller.settings.${this.SETTINGS.OPTION_SYSTEM_VARIANT}.Name`,
+      default: `${this.DEFAULT_SETTINGS.OPTION_SYSTEM_VARIANT}`,
       type: String,
       choices: {
-        0: `fux-dice-roller.settings.${this.SETTINGS.ROLL_MODE_FU_CLASSIC}`,
-        1: `fux-dice-roller.settings.${this.SETTINGS.ROLL_MODE_FU_V2}`,
-        2: `fux-dice-roller.settings.${this.SETTINGS.ROLL_MODE_ACTION_TALES}`,
-        3: `fux-dice-roller.settings.${this.SETTINGS.ROLL_MODE_NEON_CITY_OVERDRIVE}`
+        0: `fux-dice-roller.settings.${this.SETTINGS.SYSTEM_VARIANT_FU_CLASSIC}`,
+        1: `fux-dice-roller.settings.${this.SETTINGS.SYSTEM_VARIANT_FU_V2}`,
+        2: `fux-dice-roller.settings.${this.SETTINGS.SYSTEM_VARIANT_ACTION_TALES}`,
+        3: `fux-dice-roller.settings.${this.SETTINGS.SYSTEM_VARIANT_NEON_CITY_OVERDRIVE}`,
+        4: `fux-dice-roller.settings.${this.SETTINGS.SYSTEM_VARIANT_EARTHDAWN_AGE_OF_LEGEND}`
       },
       scope: 'world',
       config: false,
@@ -232,19 +229,8 @@ Hooks.on("renderSidebarTab", async (app, html) => {
       let options = {};
       new FUxDiceRollerForm(options).render(true, {focus: true});
     });
-
-//    html.find('#fux-dice-roller-show').contextmenu(ev => {        
-//        //console.log('clicked it');   
-//        let options = {};
-//        new FUxDiceRollerCombatHelperForm(options).render(true,{focus:true}); 
-//    });
-
-
-
-
-
   }
-})
+});
 
 
 
