@@ -1,14 +1,22 @@
 import { FUX_CONST } from   './fux-dice-roller-constants.js';
 const _module_id = 'fux-dice-roller';  // modules true name(id)
+async function RollD6s(faces){
+  let roll=await new Roll(faces + "d6").roll({async: true});
+  return roll;
+}
+function getGameSetting(settingName){
+  return  game.settings.get(_module_id, settingName);
+}
 export async function RollFuxDice(actiondice, dangerdice) {
     if (actiondice == 0 && dangerdice == 0) {
       //no dice, abort
       return;
     }
 
-    let hardmode = game.settings.get(_module_id, 'OPTION_HARD_MODE');
-    let systemvariant = game.settings.get(_module_id, 'OPTION_SYSTEM_VARIANT');
-    let botch_value = game.settings.get(_module_id, 'OPTION_BOTCH_VALUE');
+    let hardmode = getGameSetting('OPTION_HARD_MODE');
+    let systemvariant = getGameSetting('OPTION_SYSTEM_VARIANT');
+    let botch_value = getGameSetting('OPTION_BOTCH_VALUE');
+    let option_matchingdice = getGameSetting('OPTION_FU_CLASSIC_MATCHING_DICE');
 
     // reduce dice if FU Classic    
     if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.FU_CLASSIC) {
@@ -45,8 +53,10 @@ export async function RollFuxDice(actiondice, dangerdice) {
       }
     }
     // roll dice
-    let actiondiceresults = await new Roll(actiondice + "d6").roll({async: true});
-    let dangerdiceresults = await new Roll(dangerdice + "d6").roll({async: true});
+    let actiondiceresults = await RollD6s(actiondice);
+    //console.log(actiondiceresults);
+    let dangerdiceresults = await RollD6s(dangerdice);
+    
     // prepare result array
     let arrFinals = [0, 0, 0, 0, 0, 0];  // array for result counts, slot corresponds to face value 1- 6
     // action dice
@@ -118,7 +128,7 @@ export async function RollFuxDice(actiondice, dangerdice) {
     if (systemvariant == FUX_CONST.SYSTEM_VARIANTS.FU_CLASSIC) {
       // classic fu
       flavortext = 'Beating the Odds';
-      let option_matchingdice = game.settings.get(_module_id, 'OPTION_FU_CLASSIC_MATCHING_DICE');
+      
       if (actiondice == 0) {
         // use lowest
         // used for fu classic    
@@ -452,7 +462,7 @@ export async function RollFuxDice(actiondice, dangerdice) {
       msgname = game.user.name;
     }
     // determine running system    
-    let runningsystemname = game.system.data.name; // sandbox
+    let runningsystemname = game.system.id; // sandbox
     if (runningsystemname == 'sandbox') {
       // special handling for sandbox    
       let rollData = {

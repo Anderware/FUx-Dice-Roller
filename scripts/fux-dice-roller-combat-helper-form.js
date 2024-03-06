@@ -12,7 +12,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
   }
   
   static initialize() {
-    //console.log('Initialized SandboxKeyCheckerForm' );
+    //console.log('Initialized FUxDiceRollerCombatHelperForm' );
   }   
 
   static get defaultOptions() {
@@ -37,8 +37,17 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     html.find('#DisplayFUxDiceRollerSettings').click(this._onDisplayFUxDiceRollerSettings.bind(this));
     html.find('#fux-dice-roller-combat-helper-form').click(this._onFormClick.bind(this));
     
+//    // test code for future use to load select dynamically from json
+//    Hooks.on("renderFUxDiceRollerCombatHelperForm",async (app, html,data) => {        
+//      // find the select
+//      let eselect=html.find('#fux-dice-roller-combat-helper-form-hit-location')[0];            
+//      let option = new Option("Small of the back", "20");
+//      eselect.appendChild(option);
+//    });
+    
     
   }
+  
   getData(options) {
     let data;
     data = {
@@ -59,6 +68,9 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     let f = new ModuleSettingsForm();
     f.render(true);
   }
+  
+  
+  
   async _onFormClick(event) {
     //event.preventDefault();
 
@@ -240,7 +252,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     let wound = 'None';
     let iAttackLevel = parseInt(attacklevel, 10);
     if (iAttackLevel == 1) {
-      wound = 'No wound';
+      wound = 'Bruise';
     } else
     if (iAttackLevel == 2) {
       wound = 'Minor';
@@ -275,15 +287,15 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
       damagetype=' ' + damagetype;
     }
     combatdescription='Your ' + FUX_DR_CHF_BoldText(this.CombatResult.CombatAction) + ' was a ' + FUX_DR_CHF_BoldText(this.CombatResult.CombatResult);
-    const traumalabel='Trauma';
+    const traumalabel=FUX_DR_CHF_BoldText('Trauma');
     if (this.CombatResult.CombatAction==='Defense' && this.CombatResult.CombatResult==='Failure'){
       if(this.CombatResult.Wound==='None' || this.CombatResult.Wound==='No wound'){
         combatdescription+=' but you did not recieve any ' + FUX_DR_CHF_BoldText(traumalabel);
       } else{
         if(hitlocation==='Not selected'){          
-          combatdescription+=', you recieve a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound)  + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) ;
+          combatdescription+=', you recieve a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound)  + FUX_DR_CHF_BoldText(damagetype) + ' ' + traumalabel ;
         } else{
-          combatdescription+=', you recieve a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound)  + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) +' on your ' + FUX_DR_CHF_BoldText(hitlocation) ;  
+          combatdescription+=', you recieve a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound)  + FUX_DR_CHF_BoldText(damagetype) + ' ' + traumalabel +' on your ' + FUX_DR_CHF_BoldText(hitlocation) ;  
         }
         
         
@@ -293,9 +305,9 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
         combatdescription+=' but you did not inflict any ' + FUX_DR_CHF_BoldText(traumalabel) + ' on your opponent';
       } else{      
         if(hitlocation==='Not selected'){          
-          combatdescription+=', you inflict a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound) + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) + ' on your opponent' ;
+          combatdescription+=', you inflict a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound) + FUX_DR_CHF_BoldText(damagetype) + ' ' + traumalabel + ' on your opponent' ;
         } else{
-          combatdescription+=', you inflict a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound) + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) + ' on your opponents ' + FUX_DR_CHF_BoldText(hitlocation) ;  
+          combatdescription+=', you inflict a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound) + FUX_DR_CHF_BoldText(damagetype) + ' ' + traumalabel + ' on your opponents ' + FUX_DR_CHF_BoldText(hitlocation) ;  
         }
       }
     }

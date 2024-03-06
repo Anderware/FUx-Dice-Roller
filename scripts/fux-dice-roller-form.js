@@ -198,8 +198,8 @@ export class FUxDiceRollerForm extends FormApplication {
     if (chkSendToCombatTrackerelement != null) {      
       if (chkSendToCombatTrackerelement.checked) {
         for (const token of canvas.tokens.controlled) {
-          const combatant = game.combat.combatants.find(c => c.data.tokenId === token.data._id);
-          game.combat.setInitiative(combatant.data._id, result);
+          const combatant = game.combat.combatants.find(c => c.tokenId === token.id);
+          game.combat.setInitiative(combatant.id, result);
         }
       }
     }

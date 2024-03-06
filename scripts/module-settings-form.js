@@ -13,7 +13,7 @@ export class ModuleSettingsForm extends FormApplication {
   static initialize() {
     this.ModuleID=_module_id; 
     this.ModuleSettingIgnoreList=_module_ignore_settings;
-    this.ModuleName=game.modules.get(_module_id).data.title; 
+    this.ModuleName=game.modules.get(_module_id).title; 
     console.log('Initialized ModuleSettingsForm for module ' + this.ModuleID );
   }   
     

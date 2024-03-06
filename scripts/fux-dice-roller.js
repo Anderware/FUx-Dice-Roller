@@ -179,7 +179,7 @@ class FUxDiceRoller {
 
 
     // code for handling blind rolls
-    let runningsystemname = game.system.data.name; // sandbox
+    let runningsystemname = game.system.id; // sandbox
     if (runningsystemname == 'sandbox') {
       console.log(_module_id + ' || Current system ' + runningsystemname);
       // Sandbox have a hook on renderchatmessages which amon alot of things
