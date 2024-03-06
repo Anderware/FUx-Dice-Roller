@@ -65,6 +65,10 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     let datatarget = event.target.getAttribute("data-target");
     let dataoperation = event.target.getAttribute("data-operation");
     let datavalue = event.target.getAttribute("data-value");
+    const element = event.currentTarget;
+    
+    // get document(used for popout combability)
+    const doc = element.ownerDocument;
 
     if (datatarget !== null && dataoperation !== null && datavalue !== null) {
       let targetinput = '';
@@ -89,36 +93,36 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
         case 'combat-action':
           targetinput = '';
           this.CombatResult.CombatAction=datavalue;
-          this._ComputeCombatAction();
+          this._ComputeCombatAction(doc);
           break;
         case 'damage-type':
           targetinput = '';
-          this._ComputeCombatAction();
+          this._ComputeCombatAction(doc);
           break;
         case 'hit-location':
           targetinput = 'fux-dice-roller-combat-helper-form-hit-location';
           break;
         case 'hit-location-select':
           targetinput = '';
-          this._ComputeCombatAction();
+          this._ComputeCombatAction(doc);
           break;
         
       }
       if (targetinput !== '') {
-        let inputelement = document.getElementById(targetinput);
+        let inputelement = doc.getElementById(targetinput);
         if (inputelement != null) {
           switch (dataoperation) {
             case 'set':
               inputelement.value = datavalue;
-              this._ComputeCombatAction();
+              this._ComputeCombatAction(doc);
               break;
             case 'inc':
               inputelement.value = parseInt(inputelement.value, 10) + parseInt(datavalue, 10);
-              this._ComputeCombatAction();
+              this._ComputeCombatAction(doc);
               break;
             case 'dec':
               inputelement.value = parseInt(inputelement.value, 10) - parseInt(datavalue, 10);
-              this._ComputeCombatAction();
+              this._ComputeCombatAction(doc);
               break;
             case 'roll':
               if(datatarget=='hit-location'){
@@ -126,8 +130,8 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
                 let hitlocationindex=0;
                 let rollexpression='';
                 let faces=0;
-                let adaptive=document.getElementById("fux-dice-roller-combat-helper-form-adaptive-hit-location-roll").checked;
-                let relative=document.getElementById("fux-dice-roller-combat-helper-form-relative-hit-location-roll").checked;                
+                let adaptive=doc.getElementById("fux-dice-roller-combat-helper-form-adaptive-hit-location-roll").checked;
+                let relative=doc.getElementById("fux-dice-roller-combat-helper-form-relative-hit-location-roll").checked;                
                 if(relative) {
                   faces='100' ;
                 }else{
@@ -180,7 +184,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
                   inputelement.value = hitlocationindex;
                 }
                 
-                this._ComputeCombatAction();
+                this._ComputeCombatAction(doc);
               }
               break;
           }
@@ -193,16 +197,16 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     let rolled = results.total;
     return rolled;
   }
-  _ComputeCombatAction() {
-    let successlevel = document.getElementById('fux-dice-roller-combat-helper-form-success-level').value;
-    let damagelevel = document.getElementById('fux-dice-roller-combat-helper-form-damage-level').value;
-    let soaklevel = document.getElementById('fux-dice-roller-combat-helper-form-soak-level').value;
+  _ComputeCombatAction(doc) {
+    let successlevel = doc.getElementById('fux-dice-roller-combat-helper-form-success-level').value;
+    let damagelevel = doc.getElementById('fux-dice-roller-combat-helper-form-damage-level').value;
+    let soaklevel = doc.getElementById('fux-dice-roller-combat-helper-form-soak-level').value;
 
     //let combataction = document.getElementById('fux-dice-roller-combat-helper-form-combat-action').value;
-    let combataction = document.querySelector('input[name="fux-dice-roller-combat-helper-form-combat-action"]:checked').value;
+    let combataction = doc.querySelector('input[name="fux-dice-roller-combat-helper-form-combat-action"]:checked').value;
 
-    let attacklevel = document.getElementById('fux-dice-roller-combat-helper-form-attack-level');
-    let actionresult = document.getElementById('fux-dice-roller-combat-helper-form-combat-action-result');
+    let attacklevel = doc.getElementById('fux-dice-roller-combat-helper-form-attack-level');
+    let actionresult = doc.getElementById('fux-dice-roller-combat-helper-form-combat-action-result');
 
     if (successlevel > 0) {
       actionresult.value = 'Success';      
@@ -229,7 +233,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     }
     let wound= this._ComputeWound(attacklevel.value);
     // generate combat description
-    this._GenerateCombatDescription();
+    this._GenerateCombatDescription(doc);
   }
 
   _ComputeWound(attacklevel) {
@@ -259,12 +263,12 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     return wound;
   }
   
-  _GenerateCombatDescription(){
+  _GenerateCombatDescription(doc){
     let combatdescription='';
     // get data
-    let ehitlocation= document.getElementById('fux-dice-roller-combat-helper-form-hit-location');
+    let ehitlocation= doc.getElementById('fux-dice-roller-combat-helper-form-hit-location');
     let hitlocation=  ehitlocation.options[ehitlocation.selectedIndex].text;
-    let damagetype=document.querySelector('input[name="fux-dice-roller-combat-helper-form-damage-type"]:checked').value;
+    let damagetype=doc.querySelector('input[name="fux-dice-roller-combat-helper-form-damage-type"]:checked').value;
     if(damagetype==='None'){
       damagetype='';
     }else{
@@ -297,7 +301,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     }
   
     // assemble description
-    let eCombatDescription = document.getElementById('fux-dice-roller-combat-helper-combat-description');
+    let eCombatDescription = doc.getElementById('fux-dice-roller-combat-helper-combat-description');
     eCombatDescription.innerHTML='<i>' + combatdescription +'</i>';
   }
 

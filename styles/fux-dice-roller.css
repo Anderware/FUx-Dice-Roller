@@ -51,12 +51,16 @@
 }
 
 #DisplayFUxDiceRollerSettings,
+#ResetFUxDiceRollerSelection,
 #fux-dice-roller-combat-helper-show{
   float:right;
   font-size: 14px;
   margin-top: 5px;
+  padding-right:5px;
+  padding-left: 5px;
 }
 #DisplayFUxDiceRollerSettings:hover,
+#ResetFUxDiceRollerSelection:hover,
 #fux-dice-roller-combat-helper-show:hover{
   cursor: pointer;
   filter: drop-shadow(var(--drop-shadow-size) var(--hovercolor));

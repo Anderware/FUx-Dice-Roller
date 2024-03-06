@@ -1,5 +1,9 @@
 # FUx Dice Roller Change Log
 
+## Version 0.4.0 (2022-01-21)
+- Added Reset dice selection to diceroller
+- Added persistance to dice selection
+
 ## Version 0.3.0 (2022-01-20)
 - Added option for custom Action/Danger icon
 - Updated FU v2 Combat Helper
