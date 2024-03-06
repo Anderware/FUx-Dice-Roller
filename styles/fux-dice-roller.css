@@ -91,12 +91,26 @@
 input[type="radio"].fux-dice-roller-combat-helper-input-radio{
   
 }
+input[type="checkbox"].fux-dice-roller-combat-helper-input-checkbox{
+  
+}
 
 .fux-dice-roller-combat-helper-label-radio{
   min-width: 90px;
+  vertical-align: baseline;
 }
+
+.fux-dice-roller-combat-helper-label-checkbox{
+  min-width: 90px;  
+  vertical-align: super;
+}
+
+
+
 .fux-dice-roller-combat-helper-label-radio:hover,
-input[type="radio"].fux-dice-roller-combat-helper-input-radio:hover{
+.fux-dice-roller-combat-helper-label-checkbox:hover,
+input[type="radio"].fux-dice-roller-combat-helper-input-radio:hover,
+input[type="checkbox"].fux-dice-roller-combat-helper-input-checkbox:hover{
   cursor: pointer;
   filter: drop-shadow(var(--drop-shadow-size) var(--hovercolor));
 }

@@ -28,7 +28,9 @@ class FUxDiceRoller {
     OPTION_SHOW_SEND_TO_COMBAT_TRACKER: 'OPTION_SHOW_SEND_TO_COMBAT_TRACKER',
     OPTION_HARD_MODE: 'OPTION_HARD_MODE',
     OPTION_BOTCH_VALUE: 'OPTION_BOTCH_VALUE',
-    OPTION_FU_CLASSIC_MATCHING_DICE: 'OPTION_FU_CLASSIC_MATCHING_DICE'
+    OPTION_FU_CLASSIC_MATCHING_DICE: 'OPTION_FU_CLASSIC_MATCHING_DICE',
+    OPTION_CUSTOM_ACTION_DICE_ICON:'OPTION_CUSTOM_ACTION_DICE_ICON',
+    OPTION_CUSTOM_DANGER_DICE_ICON:'OPTION_CUSTOM_DANGER_DICE_ICON'
   } 
 
   static DEFAULT_SETTINGS = {
@@ -38,7 +40,9 @@ class FUxDiceRoller {
     OPTION_SHOW_SEND_TO_COMBAT_TRACKER: true,
     OPTION_HARD_MODE: '',
     OPTION_BOTCH_VALUE: 1,
-    OPTION_FU_CLASSIC_MATCHING_DICE: ''
+    OPTION_FU_CLASSIC_MATCHING_DICE: '',
+    OPTION_CUSTOM_ACTION_DICE_ICON:'',
+    OPTION_CUSTOM_DANGER_DICE_ICON:''
   }
   static CHATMSG_STYLE = {
     CORE: 0,
@@ -79,7 +83,7 @@ class FUxDiceRoller {
       },
       scope: 'world',
       config: false,
-      hint: `fux-dice-roller.settings.${this.SETTINGS.OPTION_ROLL_MODE}.Hint`
+      hint: `fux-dice-roller.settings.${this.SETTINGS.OPTION_SYSTEM_VARIANT}.Hint`
     });
 
     /*      game.settings.register(this.ID, this.SETTINGS.OPTION_CHATMSG_STYLE, {
@@ -149,6 +153,28 @@ class FUxDiceRoller {
       scope: 'world',
       config: false,
       hint: `fux-dice-roller.settings.${this.SETTINGS.OPTION_FU_CLASSIC_MATCHING_DICE}.Hint`
+    });
+
+
+    game.settings.register(this.ID, this.SETTINGS.OPTION_CUSTOM_ACTION_DICE_ICON, {
+        name: `fux-dice-roller.settings.${this.SETTINGS.OPTION_CUSTOM_ACTION_DICE_ICON}.Name`,
+        hint: `fux-dice-roller.settings.${this.SETTINGS.OPTION_CUSTOM_ACTION_DICE_ICON}.Hint`,
+        scope: 'client',
+        type: String,
+        filePicker: 'filepickertype',
+        default: "",
+        config: false,
+        
+    });
+    game.settings.register(this.ID, this.SETTINGS.OPTION_CUSTOM_DANGER_DICE_ICON, {
+        name: `fux-dice-roller.settings.${this.SETTINGS.OPTION_CUSTOM_DANGER_DICE_ICON}.Name`,
+        hint: `fux-dice-roller.settings.${this.SETTINGS.OPTION_CUSTOM_DANGER_DICE_ICON}.Hint`,
+        scope: 'client',
+        type: String,
+        filePicker: 'filepickertype',
+        default: "",
+        config: false,
+        
     });
 
 

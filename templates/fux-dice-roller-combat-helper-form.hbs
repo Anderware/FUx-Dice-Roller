@@ -27,7 +27,7 @@
           <div class="w3-container  w3-cell w3-mobile"> 
             <div class="w3-bar">
               <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-4"  id="fux-dice-roller-combat-helper-form-success-level-botch">Botch(-4)</button>
-              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-3"  id="fux-dice-roller-combat-helper-form-success-level-noand">No(-3)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-3"  id="fux-dice-roller-combat-helper-form-success-level-noand">No, and(-3)</button>
               <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-2"  id="fux-dice-roller-combat-helper-form-success-level-no">No(-2)</button>
               <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-1"  id="fux-dice-roller-combat-helper-form-success-level-nobut">No, but(-1)</button>
               <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="1"  id="fux-dice-roller-combat-helper-form-success-level-yesbut">Yes, but(1)</button> 
@@ -106,7 +106,7 @@
         <legend>Hit Location*</legend>
         <div class="w3-cell-row">
           <div class="w3-container  w3-cell w3-cell-top w3-padding-none" style="width:90px;">
-            <select class="fux-dice-roller-combat-helper-select" id="fux-dice-roller-combat-helper-form-hit-location">
+            <select class="fux-dice-roller-combat-helper-select" data-target="hit-location-select" data-operation="set" data-value="0" id="fux-dice-roller-combat-helper-form-hit-location">
               <option value="0" selected>Not selected</option>
               <option value="1">Left hand</option>
               <option value="2">Right Hand</option>
@@ -117,22 +117,32 @@
               <option value="7">Left upper arm</option>
               <option value="8">Right upper arm</option>
               <option value="9">Left shin</option>
-              <option value="10">Right shin</option>
-              <option value="11">Left thigh</option>
-              <option value="12">Right thigh</option>
-              <option value="13">Left shoulder</option>
-              <option value="14">Right shoulder</option>
+              <option value="10">Right shin</option>                            
+              <option value="11">Left shoulder</option>
+              <option value="12">Right shoulder</option>
+              <option value="13">Left thigh</option>
+              <option value="14">Right thigh</option>
               <option value="15">Abdomen</option>
               <option value="16">Privates</option>
               <option value="17">Chest</option>
               <option value="18">Head</option>
+              <option value="19">Neck/throat</option>
             </select>
           </div> 
           <div class="w3-container  w3-cell w3-mobile"> 
-            <div class="w3-bar">
-              <button class="fux-dice-roller-combat-helper-btn" data-target="hit-location" data-operation="roll" data-value="1d18" id="fux-dice-roller-combat-helper-form-random-hit-location-roll">Random</button> 
-              <button class="fux-dice-roller-combat-helper-btn" data-target="hit-location" data-operation="set" data-value="0" id="fux-dice-roller-combat-helper-form-random-hit-location-reset">Reset</button> 
-            </div>
+            
+              <i data-target="hit-location" data-operation="roll" data-value="1d19" id="fux-dice-roller-combat-helper-form-random-hit-location-roll" class="fux-dice-roller-combat-helper-dec-btn fas fa-dice-d20" title="Random Hit Location"></i>
+              <i data-target="hit-location" data-operation="set" data-value="0" id="fux-dice-roller-combat-helper-form-random-hit-location-reset" class="fux-dice-roller-combat-helper-dec-btn fas fas fa-undo" title="Reset"></i>
+                                          
+              
+              
+              
+            
+              <input class="fux-dice-roller-combat-helper-input-checkbox" type="checkbox"  id="fux-dice-roller-combat-helper-form-adaptive-hit-location-roll" name="fux-dice-roller-combat-helper-form-adaptive-hit-location-roll" value="Adaptive" title="Adapt hit location based on Success Level" checked>
+              <label class="fux-dice-roller-combat-helper-label-checkbox" for="fux-dice-roller-combat-helper-form-adaptive-hit-location-roll"> Adaptive</label>
+              <input class="fux-dice-roller-combat-helper-input-checkbox" type="checkbox"  id="fux-dice-roller-combat-helper-form-relative-hit-location-roll" name="fux-dice-roller-combat-helper-form-relative-hit-location-roll" value="Relative" title="Use hit location chart based on hit location relative area size" checked>
+              <label class="fux-dice-roller-combat-helper-label-checkbox" for="fux-dice-roller-combat-helper-form-relative-hit-location-roll"> Relative</label>
+            
           </div>
         </div>
       </fieldset>
@@ -159,12 +169,13 @@
     <div class="w3-cell-row">
       <div class="w3-container w3-cell w3-padding-none">
 
-        <fieldset style="min-height:65px;">
+        <fieldset style="min-height:80px;">
           <legend>Combat Description*</legend>
           <p id="fux-dice-roller-combat-helper-combat-description"></p>
           
           
         </fieldset>
+        <label>* Optional</label>
       </div>
     </div>
 

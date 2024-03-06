@@ -36,7 +36,8 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     super.activateListeners(html);
     html.find('#DisplayFUxDiceRollerSettings').click(this._onDisplayFUxDiceRollerSettings.bind(this));
     html.find('#fux-dice-roller-combat-helper-form').click(this._onFormClick.bind(this));
-
+    
+    
   }
   getData(options) {
     let data;
@@ -70,6 +71,14 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
       switch (datatarget) {
         case 'success-level':
           targetinput = 'fux-dice-roller-combat-helper-form-success-level';
+          if(dataoperation=='set'){
+            this.CombatResult.SuccessLevel=parseInt(datavalue);
+          } else if(dataoperation=='inc') {
+            this.CombatResult.SuccessLevel=parseInt(this.CombatResult.SuccessLevel) + 1;            
+          } else if(dataoperation=='dec'){
+            this.CombatResult.SuccessLevel=parseInt(this.CombatResult.SuccessLevel) - 1;            
+          }
+          
           break;
         case 'damage-level':
           targetinput = 'fux-dice-roller-combat-helper-form-damage-level';
@@ -89,6 +98,11 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
         case 'hit-location':
           targetinput = 'fux-dice-roller-combat-helper-form-hit-location';
           break;
+        case 'hit-location-select':
+          targetinput = '';
+          this._ComputeCombatAction();
+          break;
+        
       }
       if (targetinput !== '') {
         let inputelement = document.getElementById(targetinput);
@@ -107,13 +121,67 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
               this._ComputeCombatAction();
               break;
             case 'roll':
-              let rollvalue = await this._Roll(datavalue);
-              if (inputelement.nodeName === 'SELECT') {
-                inputelement.options.selectedIndex = rollvalue;
-              } else {
-                inputelement.value = rollvalue;
+              if(datatarget=='hit-location'){
+                let rollvalue=0;
+                let hitlocationindex=0;
+                let rollexpression='';
+                let faces=0;
+                let adaptive=document.getElementById("fux-dice-roller-combat-helper-form-adaptive-hit-location-roll").checked;
+                let relative=document.getElementById("fux-dice-roller-combat-helper-form-relative-hit-location-roll").checked;                
+                if(relative) {
+                  faces='100' ;
+                }else{
+                  faces='19' ;
+                }  
+
+                if(adaptive){   //Math.abs(parseInt(this.CombatResult.SuccessLevel))>0
+                  // use success level to adapt hit location roll                   
+                  if(Math.abs(parseInt(this.CombatResult.SuccessLevel))<=1){
+                    rollexpression='2d'+ faces +'kl' ;
+                  } else{
+                    rollexpression=(Math.abs(parseInt(this.CombatResult.SuccessLevel)) - 1) + 'd'+ faces +'kh' ;
+                  }                                                            
+                }else{
+                  rollexpression='1d'+faces;
+                } 
+                
+                //console.warn('Adaptive('+ adaptive + ') Relative('+ relative+') hit roll('+rollexpression+')'); 
+                rollvalue = await this._Roll(rollexpression);
+                if(relative){                   
+                  if     (rollvalue>=1 &&   rollvalue<=4)  {hitlocationindex=1;}
+                  else if(rollvalue>=5 &&   rollvalue<=8)  {hitlocationindex=2;}
+                  else if(rollvalue>=9 &&   rollvalue<=10) {hitlocationindex=3;}
+                  else if(rollvalue>=11 &&  rollvalue<=12) {hitlocationindex=4;}
+                  else if(rollvalue>=13 &&  rollvalue<=16) {hitlocationindex=5;}
+                  else if(rollvalue>=17 &&  rollvalue<=20) {hitlocationindex=6;}
+                  else if(rollvalue>=21 &&  rollvalue<=23) {hitlocationindex=7;}
+                  else if(rollvalue>=24 &&  rollvalue<=26) {hitlocationindex=8;}
+                  else if(rollvalue>=27 &&  rollvalue<=34) {hitlocationindex=9;}
+                  else if(rollvalue>=35 &&  rollvalue<=42) {hitlocationindex=10;}
+                  else if(rollvalue>=43 &&  rollvalue<=49) {hitlocationindex=11;}
+                  else if(rollvalue>=50 &&  rollvalue<=56) {hitlocationindex=12;}
+                  else if(rollvalue>=57 &&  rollvalue<=64) {hitlocationindex=13;}
+                  else if(rollvalue>=65 &&  rollvalue<=72) {hitlocationindex=14;}
+                  else if(rollvalue>=73 &&  rollvalue<=83) {hitlocationindex=15;}
+                  else if(rollvalue>=84 &&  rollvalue<=84) {hitlocationindex=16;}
+                  else if(rollvalue>=85 &&  rollvalue<=91) {hitlocationindex=17;}
+                  else if(rollvalue>=92 &&  rollvalue<=98) {hitlocationindex=18;}
+                  else if(rollvalue>=99 &&  rollvalue<=100){hitlocationindex=19;}
+                }
+                else{                    
+                  hitlocationindex = rollvalue;
+                }
+                //console.warn('rollvalue:' + rollvalue + ' hitlocationindex:'+hitlocationindex); 
+                                                      
+                // outout the result
+                if (inputelement.nodeName === 'SELECT') {
+                  inputelement.options.selectedIndex = hitlocationindex;
+                } else {
+                  inputelement.value = hitlocationindex;
+                }
+                
+                this._ComputeCombatAction();
               }
-              this._ComputeCombatAction();
               break;
           }
         }
@@ -121,7 +189,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     }
   }
   async _Roll(rollexpression) {
-    let results = await new Roll(rollexpression).roll({async: true});
+    let results = await new Roll(rollexpression).roll({async: true});    
     let rolled = results.total;
     return rolled;
   }
@@ -137,12 +205,12 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     let actionresult = document.getElementById('fux-dice-roller-combat-helper-form-combat-action-result');
 
     if (successlevel > 0) {
-      actionresult.value = 'Success';
-      this.CombatResult.CombatResult='succeeded';
+      actionresult.value = 'Success';      
     } else {
-      actionresult.value = 'Fail';
-      this.CombatResult.CombatResult='failed';
+      actionresult.value = 'Failure';      
     }
+    
+    this.CombatResult.CombatResult=actionresult.value;
     switch (combataction) {
       case 'Attack':
         if (successlevel > 0) {
@@ -202,27 +270,28 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
     }else{
       damagetype=' ' + damagetype;
     }
-    combatdescription='Your ' + this.CombatResult.CombatAction + ' ' + this.CombatResult.CombatResult;
-    if (this.CombatResult.CombatAction==='Defense' && this.CombatResult.CombatResult==='failed'){
+    combatdescription='Your ' + FUX_DR_CHF_BoldText(this.CombatResult.CombatAction) + ' was a ' + FUX_DR_CHF_BoldText(this.CombatResult.CombatResult);
+    const traumalabel='Trauma';
+    if (this.CombatResult.CombatAction==='Defense' && this.CombatResult.CombatResult==='Failure'){
       if(this.CombatResult.Wound==='None' || this.CombatResult.Wound==='No wound'){
-        combatdescription+=' but you did not get any wound';
+        combatdescription+=' but you did not recieve any ' + FUX_DR_CHF_BoldText(traumalabel);
       } else{
         if(hitlocation==='Not selected'){          
-          combatdescription+=', you recieve a ' + this.CombatResult.Wound  + damagetype + ' wound' ;
+          combatdescription+=', you recieve a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound)  + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) ;
         } else{
-          combatdescription+=', you recieve a ' + this.CombatResult.Wound  + damagetype + ' wound in your ' + hitlocation ;  
+          combatdescription+=', you recieve a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound)  + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) +' on your ' + FUX_DR_CHF_BoldText(hitlocation) ;  
         }
         
         
       }
-    } else if(this.CombatResult.CombatAction==='Attack' && this.CombatResult.CombatResult==='succeeded'){
+    } else if(this.CombatResult.CombatAction==='Attack' && this.CombatResult.CombatResult==='Success'){
       if(this.CombatResult.Wound==='None' || this.CombatResult.Wound==='No wound'){
-        combatdescription+=' but your opponent did not get any wound';
+        combatdescription+=' but you did not inflict any ' + FUX_DR_CHF_BoldText(traumalabel) + ' on your opponent';
       } else{      
         if(hitlocation==='Not selected'){          
-          combatdescription+=', you inflict a ' + this.CombatResult.Wound  + damagetype + ' wound on your opponent' ;
+          combatdescription+=', you inflict a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound) + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) + ' on your opponent' ;
         } else{
-          combatdescription+=', you inflict a ' + this.CombatResult.Wound  + damagetype + ' wound in your opponents ' + hitlocation ;  
+          combatdescription+=', you inflict a ' + FUX_DR_CHF_BoldText(this.CombatResult.Wound) + FUX_DR_CHF_BoldText(damagetype) + ' ' + FUX_DR_CHF_BoldText(traumalabel) + ' on your opponents ' + FUX_DR_CHF_BoldText(hitlocation) ;  
         }
       }
     }
@@ -234,3 +303,7 @@ export class FUxDiceRollerCombatHelperForm extends FormApplication {
 
 }
 ;
+
+function FUX_DR_CHF_BoldText(text){
+  return '<b>' + text + '</b>';
+}

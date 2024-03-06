@@ -1,15 +1,15 @@
 {{#*inline "actiondiePartial"}}
   {{#if this.isSelected}}
-    <input id="fux-dice-roller-form-FUActionDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:1;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/actiondie.svg">
+    <input id="fux-dice-roller-form-FUActionDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:1;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" alt="Action" src="{{this.actiondiceicon}}">
   {{else}}                
-    <input id="fux-dice-roller-form-FUActionDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:0.4;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/actiondie.svg">
+    <input id="fux-dice-roller-form-FUActionDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:0.4;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" alt="Action" src="{{this.actiondiceicon}}">
   {{/if}} 
 {{/inline}}
 {{#*inline "dangerdiePartial"}}
   {{#if this.isSelected}}      
-    <input id="fux-dice-roller-form-FUDangerDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:1;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/dangerdie.svg">
+    <input id="fux-dice-roller-form-FUDangerDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:1;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" alt="Danger" src="{{this.dangerdiceicon}}">
   {{else}} 
-    <input id="fux-dice-roller-form-FUDangerDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:0.4;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/dangerdie.svg">
+    <input id="fux-dice-roller-form-FUDangerDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:0.4;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" alt="Danger" src="{{this.dangerdiceicon}}">
   {{/if}} 
 {{/inline}}
 

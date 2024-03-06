@@ -49,6 +49,16 @@
       } ,
       
       
+      "OPTION_CUSTOM_ACTION_DICE_ICON": {
+        "Name": "Custom Action Dice Icon",
+        "Hint": "Path to custom icon for Action Dice. Leave blank for default"
+      } ,
+      
+      "OPTION_CUSTOM_DANGER_DICE_ICON": {
+        "Name": "Custom Danger Dice Icon",
+        "Hint": "Path to custom icon for Danger Dice. Leave blank for default"
+      } ,
+      
       "SYSTEM_VARIANT_FU_CLASSIC":"FU Classic",
       "SYSTEM_VARIANT_FU_V2":"FU v2",
       "SYSTEM_VARIANT_ACTION_TALES":"Action! Tales",

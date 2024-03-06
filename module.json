@@ -16,7 +16,7 @@
       "path": "languages/en.json"
     }
   ],
-  "version": "0.2.0",
+  "version": "0.3.0",
   "minimumCoreVersion": "0.8.8",
   "compatibleCoreVersion": "9.242", 
   "styles": [
@@ -33,9 +33,9 @@
   ],
   "manifest": "https://raw.githubusercontent.com/Anderware/Foundry-Vtt-Sandbox-Macros/main/Modules/FUx-Dice-Roller/releases/module.json",
   "url": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/tree/main/Modules/FUx-Dice-Roller",
-  "download": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/raw/main/Modules/FUx-Dice-Roller/releases/0.2.0/fux-dice-roller-0.2.0.zip",
+  "download": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/raw/main/Modules/FUx-Dice-Roller/releases/0.3.0/fux-dice-roller-0.3.0.zip",
   "readme": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/blob/main/Modules/FUx-Dice-Roller/README.MD",
-  "changelog": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/blob/main/Modules/FUx-Dice-Roller/releases/0.2.0/changelog.md",
+  "changelog": "https://github.com/Anderware/Foundry-Vtt-Sandbox-Macros/blob/main/Modules/FUx-Dice-Roller/releases/0.3.0/changelog.md",
   "media": [
       {
           "type": "icon",

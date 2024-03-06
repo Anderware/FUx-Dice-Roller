@@ -38,7 +38,18 @@ export class FUxDiceRollerForm extends FormApplication {
     let data;
     let availabledice = game.settings.get(_module_id, 'OPTION_DICE_AVAILABLE');
     let showInitiativeOption = game.settings.get(_module_id, 'OPTION_SHOW_SEND_TO_COMBAT_TRACKER');
-
+    let actiondiceicon='modules/fux-dice-roller/images/actiondie.svg';
+    let dangerdiceicon='modules/fux-dice-roller/images/dangerdie.svg';
+    let customactiondiceicon=game.settings.get(_module_id, 'OPTION_CUSTOM_ACTION_DICE_ICON');
+    let customdangerdiceicon=game.settings.get(_module_id, 'OPTION_CUSTOM_DANGER_DICE_ICON');
+    if(customactiondiceicon.length>0){
+      actiondiceicon=customactiondiceicon;
+    }
+    if (customdangerdiceicon.length>0){
+      dangerdiceicon=customdangerdiceicon;
+    }
+    
+    
     let actiondice = [];
     let dangerdice = [];
     let actiondie;
@@ -50,11 +61,11 @@ export class FUxDiceRollerForm extends FormApplication {
 
     for (let i = 1; i <= availabledice; i++) {
       if (i == 1) {
-        actiondie = {"number": i, "isSelected": true};
-        dangerdie = {"number": i, "isSelected": false};
+        actiondie = {"number": i, "isSelected": true,actiondiceicon:actiondiceicon};
+        dangerdie = {"number": i, "isSelected": false,dangerdiceicon:dangerdiceicon};
       } else {
-        actiondie = {"number": i, "isSelected": false};
-        dangerdie = {"number": i, "isSelected": false};
+        actiondie = {"number": i, "isSelected": false,actiondiceicon:actiondiceicon};
+        dangerdie = {"number": i, "isSelected": false,dangerdiceicon:dangerdiceicon};
       }
       actiondice.push(actiondie);
       dangerdice.push(dangerdie);
