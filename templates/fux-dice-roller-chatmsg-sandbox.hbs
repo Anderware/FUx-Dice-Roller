@@ -1,0 +1,101 @@
+<div class="roll-template">
+    <div class="prevent-sandbox-detection-table-draw"></div>
+    <div class="roll-content">
+
+        <div class="roll-flexrow">
+            {{#if token.img}}
+            <img class = "roll-sender-image" style="height:48px;width:48px;object-fit:cover;object-position:50% 0;margin: 0px 3px 0px 0px;border: none;" src="{{token.img}}" title="{{token.name}}"/>
+            {{/if}}
+
+            <div class="roll-header roll-flexrow roll-underline">
+                <h4 class="roll-sender-name">{{actor}}</h4>
+                <span class="roll-delete-button">
+                    <a class="roll-message-delete"><i class="fas fa-trash"></i></a>
+                </span>
+            </div>
+
+        </div>
+
+        {{#if isWhisper}}
+        <span class="whisper-to">{{localize 'CHAT.To'}}: {{whisperTo}}</span>
+        {{/if}}
+
+        {{#if flavor}}
+        <div class="roll-flavor">
+            {{#if link}}
+            <div class="roll-citemlink">
+                {{{flavor}}}
+            </div>
+            {{else}}
+            {{{flavor}}}
+            {{/if}}
+        </div>
+        {{/if}}
+
+        <div class="roll-result">
+            {{#if iscrit}}
+            <div class="roll-iscrit">
+                {{{result}}}
+            </div>
+            {{else}}
+            {{#if isfumble}}
+            <div class="roll-isfumble">
+                {{{result}}}
+            </div>
+            {{else}}
+            {{{result}}}
+            {{/if}}
+            {{/if}}
+
+
+            {{#if conditional}}
+            <div class="roll-conditional">
+                {{{conditional}}}
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="roll-extra">
+
+            <div class="roll-detail">
+                <div class="roll-area" style="max-height: 60px !important;">
+                    <div class="roll-flexrow">                        
+                        <div class="roll-conditional" style="width:100%;text-align:left;height:unset;margin-top: -1px;">{{{summary}}}</div>
+                    </div>
+                    <div class="roll-flexrow">                        
+                        <div class="roll-formula">{{{action}}}</div>
+                    </div>
+                    <div class="roll-flexrow">
+                        
+                        <div class="roll-formula">{{{danger}}}</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="roll-flexrow">
+
+                <a class="roll-wbutton">
+                    <i class="roll-detail-button roll-wbutton">Detail</i>
+                </a>
+                <a class="roll-wbutton">
+                    <i class="roll-main-button roll-wbutton">Result</i>
+                </a>
+
+                <div class="roll-user">
+                    {{{user}}}
+                </div>
+            </div>
+
+
+
+            <div class="roll-flexrow">
+                <div class="roll-timestamp message-timestamp">
+                    {{{data.timestamp}}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

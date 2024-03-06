@@ -1,0 +1,57 @@
+{{#*inline "settingPartial"}}
+<div class="form-group">
+    <label>{{this.name}}</label>
+    <div class="form-fields">
+
+        {{#if this.isCheckbox}}
+        <input type="checkbox" name="{{this.id}}" data-dtype="Boolean" {{checked this.value}}/>
+
+        {{else if this.isSelect}}
+        <select name="{{this.id}}">
+            {{#select this.value}}
+            {{#each this.choices as |name k|}}
+            <option value="{{k}}">{{localize name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+
+        {{else if this.isRange}}
+        <input type="range" name="{{this.id}}" data-dtype="Number" value="{{ this.value }}"
+               min="{{ this.range.min }}" max="{{ this.range.max }}" step="{{ this.range.step }}"/>
+        <span class="range-value">{{this.value}}</span>
+
+        {{else if this.filePicker}}
+        {{filePicker target=this.id type=this.filePickerType}}
+        <input type="text" name="{{this.id}}" value="{{this.value}}" data-dtype="{{this.type}}"/>
+
+        {{else}}
+        <input type="text" name="{{this.id}}" value="{{this.value}}" data-dtype="{{this.type}}"/>
+        {{/if}}
+    </div>
+
+    <p class="notes">{{{this.hint}}}</p>
+</div>
+{{/inline}}
+
+<form>
+    <div style="width:100%;line-height: 32px;font-size: 16px;border-bottom: 1px solid #000;"><i class="fas fa-plug"></i> Module Settings</div>
+    
+    <h2 class="module-header" style="padding-top:5px;border-top: 1px solid #b5b3a4;">{{module_name}}</h2> 
+  
+    {{#each settings}}
+    {{> settingPartial}}
+    {{/each}}
+  
+  
+  
+      <!-- Settings Footer -->
+    <footer class="sheet-footer flexrow">
+        <button type="submit" name="submit">
+            <i class="far fa-save"></i> {{localize 'SETTINGS.Save'}}
+        </button>
+        <button type="button" name="reset">
+            <i class="fas fa-undo"></i> {{localize 'SETTINGS.Reset'}}
+        </button>
+    </footer>
+
+</form>

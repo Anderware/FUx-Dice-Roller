@@ -1,0 +1,138 @@
+:root {  
+  --hovercolor: darkred; /* color used for illumniating clickable element */
+  --focuscolor: darkred; /* color used for illumniating focus/active selection */  
+  --box-shadow-size:0 0 5px;
+  --text-shadow-size:0 0 8px; 
+  --drop-shadow-size:0 0 11px;
+  
+}
+
+
+.btn-fux-dice-roller-show {
+
+  cursor: pointer;  
+  height:24px;
+  max-width:24px;  
+  border-style: none;
+
+}
+
+.btn-fux-dice-roller-show:hover{
+  
+  filter: drop-shadow(0 0 5px red);
+  }  
+
+.btn-fux-dice-roller-form-die{
+  margin:0 3px 1px 0;
+  border:0px;
+  width:45px; 
+}
+  
+.btn-fux-dice-roller-form-die:hover {
+  cursor: pointer;
+  color: darkred;
+  box-shadow:0 0 7px darkred;
+}
+
+.fux-dice-roller-msgchat-flavor{
+  font-style: italic;  
+}
+
+.fux-dice-roller-msgchat-oracle{
+  font-size: 24px; 
+  color:blue;
+}
+
+.fux-dice-roller-msgchat-botch{
+  color:red;
+}
+.fux-dice-roller-msgchat-boon{
+  color:green;
+}
+
+#DisplayFUxDiceRollerSettings,
+#fux-dice-roller-combat-helper-show{
+  float:right;
+  font-size: 14px;
+  margin-top: 5px;
+}
+#DisplayFUxDiceRollerSettings:hover,
+#fux-dice-roller-combat-helper-show:hover{
+  cursor: pointer;
+  filter: drop-shadow(var(--drop-shadow-size) var(--hovercolor));
+  text-shadow: 0 0 8px var(--hovercolor);
+}
+
+.fux-dice-roller-combat-helper-btn{
+  
+  width:100px;
+}
+
+.fux-dice-roller-combat-helper-btn:hover,
+.fux-dice-roller-combat-helper-inc-btn:hover,
+.fux-dice-roller-combat-helper-dec-btn:hover{
+  cursor: pointer;
+  filter: drop-shadow(var(--drop-shadow-size) var(--hovercolor));
+  
+}
+
+.fux-dice-roller-combat-helper-form-level-label{
+/*  width:110px;
+  display: inline-block;*/
+}
+
+.fux-dice-roller-combat-helper-inc-btn,
+.fux-dice-roller-combat-helper-dec-btn{  
+  font-size: 26px;
+    
+    vertical-align: bottom;
+}
+
+input[type="radio"].fux-dice-roller-combat-helper-input-radio{
+  
+}
+
+.fux-dice-roller-combat-helper-label-radio{
+  min-width: 90px;
+}
+.fux-dice-roller-combat-helper-label-radio:hover,
+input[type="radio"].fux-dice-roller-combat-helper-input-radio:hover{
+  cursor: pointer;
+  filter: drop-shadow(var(--drop-shadow-size) var(--hovercolor));
+}
+
+
+
+select.fux-dice-roller-combat-helper-select{
+  width:195px;
+
+}
+
+input[type="number"].fux-dice-roller-combat-helper-input-number{
+  width:36px;
+  text-align: center;
+}
+
+input[type="text"].fux-dice-roller-combat-helper-input-text{
+  width:100px;
+}
+
+input[type="number"].fux-dice-roller-combat-helper-input-number:disabled,
+input[type="text"].fux-dice-roller-combat-helper-input-text:disabled{
+    border: 1px solid #7a7971;
+    border-radius: 3px;
+}
+
+/* css for using chatmsg-core.hbs*/
+.fux-dice-roller-chat-formula{
+  flex: 0 0 100%;
+    position: relative;
+    margin-bottom: 5px;
+    line-height: 24px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border-light-2);
+    border-radius: 3px;
+    box-shadow: 0 0 2px #fff inset;
+    word-break: break-all;
+}

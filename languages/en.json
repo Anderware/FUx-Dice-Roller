@@ -1,0 +1,60 @@
+{
+  "fux-dice-roller":  {                      
+    "settings": {               
+      "SETTINGS_FORM": {
+        "Name": "FUx Dice Roller Settings",
+        "Hint": "Displays settings form for FUx Dice Roller"
+      }, 
+      
+      "ROLLER_FORM": {
+        "Name": "FUx Dice Roller",
+        "Hint": "Displays FUx Dice Roller"
+      }, 
+         
+      "OPTION_ROLL_MODE": {
+        "Name": "FUx System Variant",
+        "Hint": "Variant of FreeForm Universal(FU) used"
+      },        
+         
+      "OPTION_CHATMSG_STYLE": {
+        "Name": "Chat Message Style",
+        "Hint": "Style of chat message used"
+      },    
+      
+      
+      "OPTION_SHOW_SEND_TO_COMBAT_TRACKER": {
+        "Name": "Show Send to Combat Tracker ",
+        "Hint": "Display option to send result as Initiative to Combat Tracker for controlled tokens"
+      },
+      
+      "OPTION_DICE_AVAILABLE": {
+        "Name": "Dice Available",
+        "Hint": "Number of dice displayed"
+      } , 
+       
+      "OPTION_HARD_MODE": {
+        "Name": "FUv2/NCO/Action!Tale: Hard Mode",
+        "Hint": "In hard mode each Danger die cancels all Action dice with a matching value"
+      } , 
+      
+      "OPTION_BOTCH_VALUE": {
+        "Name": "FUv2/NCO/Action!Tale: Botch Value",
+        "Hint": "The numerical value of a Botch(Standard FU2 is 1)"
+      } ,  
+      
+      
+      "OPTION_FU_CLASSIC_MATCHING_DICE": {
+        "Name": "FU Classic: Matching Dice",
+        "Hint": "Rolling doubles, triples or quadruples etc makes a success better or a failure worse"
+      } ,
+      
+      
+      "ROLL_MODE_FU_CLASSIC":"FU Classic",
+      "ROLL_MODE_FU_V2":"FU v2",
+      "ROLL_MODE_ACTION_TALES":"Action! Tales",
+      "ROLL_MODE_NEON_CITY_OVERDRIVE":"Neon City Overdrive",
+      "OPTION_CHATMSG_STYLE_CORE":"Foundry Core",
+      "OPTION_CHATMSG_STYLE_SANDBOX":"Sandbox System"
+    }
+  }
+}

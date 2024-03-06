@@ -1,0 +1,54 @@
+{{#*inline "actiondiePartial"}}
+  {{#if this.isSelected}}
+    <input id="fux-dice-roller-form-FUActionDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:1;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/actiondie.svg">
+  {{else}}                
+    <input id="fux-dice-roller-form-FUActionDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:0.4;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/actiondie.svg">
+  {{/if}} 
+{{/inline}}
+{{#*inline "dangerdiePartial"}}
+  {{#if this.isSelected}}      
+    <input id="fux-dice-roller-form-FUDangerDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:1;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/dangerdie.svg">
+  {{else}} 
+    <input id="fux-dice-roller-form-FUDangerDie{{this.number}}" type="image" class="btn-fux-dice-roller-form-die" style="opacity:0.4;" onclick="this.style.opacity = (this.style.opacity!==&quot;0.4&quot; ? &quot;0.4&quot; : &quot;1&quot;);" src="modules/fux-dice-roller/images/dangerdie.svg">
+  {{/if}} 
+{{/inline}}
+
+<form>
+<h2 class="module-header" style="padding-top:5px;border-top: 1px solid #b5b3a4;">{{system_variant}} Dice Roller{{#if this.showfuxsettings}}<i id="DisplayFUxDiceRollerSettings" title="Show FUx Dice Roller Settings"  class="fas fa-cog"></i>{{/if}}{{#if this.showfu2combathelper}}<i id="fux-dice-roller-combat-helper-show" title="Show FU2 Combat Helper"  class="fas fa-fist-raised" style="padding-right:5px;"></i>{{/if}}</h2>
+  <fieldset style="min-height:82px;">
+    <legend>{{actiondice_title}}</legend>
+    <div id="fux-dice-roller-form-ActionDiceAvailable">
+     {{#each actiondice}}
+    {{> actiondiePartial}}
+    {{/each}} 
+    </div>
+  </fieldset>
+  <fieldset style="min-height:82px;">
+    <legend>{{dangerdice_title}}</legend> 
+    <div id="fux-dice-roller-form-DangerDiceAvailable">
+    {{#each dangerdice}}
+    {{> dangerdiePartial}}
+    {{/each}}
+    </div>
+  </fieldset> 
+
+  {{#if this.showInitiativeOption}}
+  <fieldset>
+    <legend>Options</legend>
+    <table style="border: 0px;background: transparent;">
+    <tr><td><label for="fux-dice-roller-form-chkSendToCombatTracker">Send result as Initiative to Combat Tracker for selected token(s)</label></td>
+    <td><input type="checkbox" id="fux-dice-roller-form-chkSendToCombatTracker"></td>
+    </tr>
+    </table>
+  </fieldset>  
+   {{/if}} 
+     <br>
+   <!-- Settings Footer -->
+    <footer class="sheet-footer flexrow">
+    
+        <button name="fux-dice-roller-form_btn-roll">
+            <i class="fas fa-dice-d6"></i>Roll!
+        </button>
+
+    </footer>
+ </form>

@@ -1,0 +1,29 @@
+<div class="dice-roll">
+    {{#if flavor}}
+    <div class="dice-flavor">{{flavor}}</div>
+    {{/if}}
+    
+   
+    <div class="dice-result fux-dice-roller-chat-result">
+        <div class="fux-dice-roller-chat-formula">{{formula}}</div>
+          <div class="dice-tooltip">
+            {{#each parts}}
+            <section class="tooltip-part">
+                <div class="dice">
+                    <header class="part-header flexrow">
+                        <span class="part-formula">{{this.formula}}</span>
+                        
+                    </header>
+                    <ol class="dice-rolls">
+                    {{#each this.rolls}}
+                        <li class="roll {{this.classes}}">{{{this.result}}}</li>
+                    {{/each}}
+                    </ol>
+                </div>
+            </section>
+            {{/each}}
+        </div>
+        <h4 class="dice-total" {{#if iscrit}} style="color:green;" {{/if}} {{#if isfumble}} style="color:red;" {{/if}} >{{total}}</h4>                
+    </div>
+   
+</div>

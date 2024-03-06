@@ -1,0 +1,164 @@
+<form>
+  <h2 class="module-header" style="padding-top:5px;border-top: 1px solid #b5b3a4;">FU2 Combat Helper{{#if user.isGM}}<i id="DisplayFUxDiceRollerSettings" title="Show FUx Dice Roller Settings"  class="fas fa-cog"></i>{{/if}}</h2>
+  <div id="fux-dice-roller-combat-helper-form">
+
+
+
+    <fieldset>
+      <legend>Combat Action</legend> 
+      <div class="w3-bar">            
+        <input class="fux-dice-roller-combat-helper-input-radio" data-target="combat-action" data-operation="set" data-value="Attack" type="radio" id="fux-dice-roller-combat-helper-form-combat-action-attack" name="fux-dice-roller-combat-helper-form-combat-action" value="Attack" checked/>
+        <label class="fux-dice-roller-combat-helper-label-radio"  for="fux-dice-roller-combat-helper-form-combat-action-attack">Attack</label>
+        <input class="fux-dice-roller-combat-helper-input-radio" data-target="combat-action" data-operation="set" data-value="Defend"type="radio" id="fux-dice-roller-combat-helper-form-combat-action-defend" name="fux-dice-roller-combat-helper-form-combat-action" value="Defend"/>
+        <label class="fux-dice-roller-combat-helper-label-radio" for="fux-dice-roller-combat-helper-form-combat-action-defend">Defend</label>
+      </div>
+    </fieldset>
+
+
+    <div class="w3-container  w3-padding-none">
+      <fieldset>
+        <legend>Success Level</legend>
+        <div class="w3-cell-row">
+          <div class="w3-container  w3-cell w3-cell-top w3-padding-none" style="width:90px;">
+            <i data-target="success-level" data-operation="dec" data-value="1" id="fux-dice-roller-combat-helper-form-success-level-dec" class="fux-dice-roller-combat-helper-dec-btn fas fa-minus-square"></i>
+            <input type="number" class="fux-dice-roller-combat-helper-input-number"   id="fux-dice-roller-combat-helper-form-success-level" value="0"/>  
+            <i data-target="success-level" data-operation="inc" data-value="1" id="fux-dice-roller-combat-helper-form-success-level-inc" class="fux-dice-roller-combat-helper-inc-btn fas fa-plus-square"></i> 
+          </div> 
+          <div class="w3-container  w3-cell w3-mobile"> 
+            <div class="w3-bar">
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-4"  id="fux-dice-roller-combat-helper-form-success-level-botch">Botch(-4)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-3"  id="fux-dice-roller-combat-helper-form-success-level-noand">No(-3)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-2"  id="fux-dice-roller-combat-helper-form-success-level-no">No(-2)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="-1"  id="fux-dice-roller-combat-helper-form-success-level-nobut">No, but(-1)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="1"  id="fux-dice-roller-combat-helper-form-success-level-yesbut">Yes, but(1)</button> 
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="2"  id="fux-dice-roller-combat-helper-form-success-level-yes">Yes(2)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="3"  id="fux-dice-roller-combat-helper-form-success-level-yesand">Yes, and(3)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="success-level" data-operation="set" data-value="4"  id="fux-dice-roller-combat-helper-form-success-level-yesand">Boon 1(4)</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+
+    <div class="w3-container   w3-padding-none">
+      <fieldset>
+        <legend>Attack Damage</legend>
+        <div class="w3-cell-row">
+          <div class="w3-container  w3-cell w3-cell-top w3-padding-none" style="width:90px;">
+            <i data-target="damage-level" data-operation="dec" data-value="1" id="fux-dice-roller-combat-helper-form-damage-level-dec" class="fux-dice-roller-combat-helper-dec-btn fas fa-minus-square"></i>
+            <input class="fux-dice-roller-combat-helper-input-number" type="number" id="fux-dice-roller-combat-helper-form-damage-level" value="0"/>
+            <i data-target="damage-level" data-operation="inc" data-value="1" id="fux-dice-roller-combat-helper-form-damage-level-inc" class="fux-dice-roller-combat-helper-inc-btn fas fa-plus-square"></i> 
+          </div> 
+          <div class="w3-container  w3-cell w3-mobile"> 
+            <div class="w3-bar">
+              <button class="fux-dice-roller-combat-helper-btn" data-target="damage-level" data-operation="set" data-value="0" id="fux-dice-roller-combat-helper-form-damage-level-none">None(0)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="damage-level" data-operation="set" data-value="1" id="fux-dice-roller-combat-helper-form-damage-level-light">Light(1)</button> 
+              <button class="fux-dice-roller-combat-helper-btn" data-target="damage-level" data-operation="set" data-value="2" id="fux-dice-roller-combat-helper-form-damage-level-medium">Medium(2)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="damage-level" data-operation="set" data-value="3" id="fux-dice-roller-combat-helper-form-damage-level-heavy">Heavy(3)</button> 
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>   
+
+    <div class="w3-container   w3-padding-none">
+      <fieldset>
+        <legend>Defense Soak</legend>
+        <div class="w3-cell-row">
+          <div class="w3-container  w3-cell w3-cell-top w3-padding-none" style="width:90px;">
+            <i data-target="soak-level" data-operation="dec" data-value="1" id="fux-dice-roller-combat-helper-form-soak-level-dec" class="fux-dice-roller-combat-helper-dec-btn fas fa-minus-square"></i>
+            <input class="fux-dice-roller-combat-helper-input-number" type="number" id="fux-dice-roller-combat-helper-form-soak-level" value="0"/>
+            <i data-target="soak-level" data-operation="inc" data-value="1" id="fux-dice-roller-combat-helper-form-soak-level-inc" class="fux-dice-roller-combat-helper-inc-btn fas fa-plus-square"></i> 
+          </div> 
+          <div class="w3-container  w3-cell w3-mobile"> 
+            <div class="w3-bar">
+              <button class="fux-dice-roller-combat-helper-btn" data-target="soak-level" data-operation="set" data-value="0" id="fux-dice-roller-combat-helper-form-soak-level-none">None(0)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="soak-level" data-operation="set" data-value="1" id="fux-dice-roller-combat-helper-form-soak-level-light">Light(1)</button> 
+              <button class="fux-dice-roller-combat-helper-btn" data-target="soak-level" data-operation="set" data-value="2" id="fux-dice-roller-combat-helper-form-soak-level-medium">Medium(2)</button>
+              <button class="fux-dice-roller-combat-helper-btn" data-target="soak-level" data-operation="set" data-value="3" id="fux-dice-roller-combat-helper-form-soak-level-heavy">Heavy(3)</button> 
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="w3-container  w3-padding-none">
+      <fieldset>  
+        <legend>Hit Location</legend>
+        <div class="w3-cell-row">
+          <div class="w3-container  w3-cell w3-cell-top w3-padding-none" style="width:90px;">
+            <select class="fux-dice-roller-combat-helper-select" id="fux-dice-roller-combat-helper-form-hit-location">
+              <option value="0" selected>Not selected</option>
+              <option value="1">Left hand</option>
+              <option value="2">Right Hand</option>
+              <option value="3">Left foot</option>
+              <option value="4">Right foot</option>
+              <option value="5">Left forearm</option>
+              <option value="6">Right forearm</option>
+              <option value="7">Left upper arm</option>
+              <option value="8">Right upper arm</option>
+              <option value="9">Left shin</option>
+              <option value="10">Right shin</option>
+              <option value="11">Left thigh</option>
+              <option value="12">Right thigh</option>
+              <option value="13">Left shoulder</option>
+              <option value="14">Right shoulder</option>
+              <option value="15">Abdomen</option>
+              <option value="16">Privates</option>
+              <option value="17">Chest</option>
+              <option value="18">Head</option>
+            </select>
+          </div> 
+          <div class="w3-container  w3-cell w3-mobile"> 
+            <div class="w3-bar">
+              <button class="fux-dice-roller-combat-helper-btn" data-target="hit-location" data-operation="roll" data-value="1d18" id="fux-dice-roller-combat-helper-form-random-hit-location-roll">Random</button> 
+              <button class="fux-dice-roller-combat-helper-btn" data-target="hit-location" data-operation="set" data-value="0" id="fux-dice-roller-combat-helper-form-random-hit-location-reset">Reset</button> 
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+
+
+    <div class="w3-container w3-padding-none">
+      <fieldset>
+        <legend>Damage Type</legend>
+        <div class="w3-bar">
+          {{#each damage_types}}                          
+          <input class="fux-dice-roller-combat-helper-input-radio" data-target="damage-type" data-operation="set" data-value="{{this}}" type="radio" id="fux-dice-roller-combat-helper-form-combat-damage-type-{{this}}" name="fux-dice-roller-combat-helper-form-damage-type" value="{{this}}" {{#if @first}}checked{{/if}}/>
+          <label class="fux-dice-roller-combat-helper-label-radio" for="fux-dice-roller-combat-helper-form-combat-damage-type-{{this}}">{{this}}</label>
+          {{/each}}
+       
+        </div>
+        </fieldset>
+
+        </div>
+
+
+        <div class="w3-cell-row">
+      <div class="w3-container w3-cell w3-padding-none">
+
+        <fieldset>
+          <legend>Combat Results</legend>
+
+          <label class="fux-dice-roller-combat-helper-form-level-label" for="fux-dice-roller-combat-helper-form-combat-action-result">Result</label>
+          <input class="fux-dice-roller-combat-helper-input-text" type="text" id="fux-dice-roller-combat-helper-form-combat-action-result" value="" disabled/>
+
+
+          <label class="fux-dice-roller-combat-helper-form-level-label" for="fux-dice-roller-combat-helper-form-attack-level">Damage</label>
+          <input class="fux-dice-roller-combat-helper-input-number" type="number" id="fux-dice-roller-combat-helper-form-attack-level" value="" disabled/>
+
+
+          <label class="fux-dice-roller-combat-helper-form-level-label" for="fux-dice-roller-combat-helper-form-wound-level">Wound</label>
+          <input class="fux-dice-roller-combat-helper-input-text" type="text" id="fux-dice-roller-combat-helper-form-wound-level" value="" disabled/>
+
+        </fieldset>
+      </div>
+    </div>
+
+
+
+        </div>
+        </form>
